@@ -42,7 +42,7 @@ export default CREDENTIALS;
 using node.
 
 ```
-$ node index.js
+$ node index.mjs
 ```
 
 The server will be available at `http://127.0.0.1:3001`, with the Instagram API
