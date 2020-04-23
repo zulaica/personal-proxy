@@ -15,7 +15,7 @@ Because I didn't want to. This is primarily a learning experience for myself.
 
 # Requirements
 
-[NodeJS](https://nodejs.org/) v13 (v14 LTS when it is released)
+[NodeJS](https://nodejs.org/) v14
 
 # Prerequesites
 
