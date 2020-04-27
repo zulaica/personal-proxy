@@ -45,8 +45,6 @@ const server = createServer((request, response) => {
         }
       );
       break;
-    case '/spotify':
-      break;
     default:
       requestForbidden();
       break;
