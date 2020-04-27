@@ -16,11 +16,12 @@ const server = createServer((request, response) => {
     response.end();
   };
 
-  if (request.method !== 'GET') {
-    return readFile('403.html', (_error, data) => {
-      sendResponse(403, 'text/html', data);
-    });
-  }
+  const requestForbidden = () =>
+    readFile('403.html', (_error, data) =>
+      sendResponse(403, 'text/html', data)
+    );
+
+  if (request.method !== 'GET') return requestForbidden();
 
   switch (request.url) {
     case '/favicon.ico':
@@ -47,9 +48,7 @@ const server = createServer((request, response) => {
     case '/spotify':
       break;
     default:
-      readFile('403.html', (_error, data) => {
-        sendResponse(403, 'text/html', data);
-      });
+      requestForbidden();
       break;
   }
 });
