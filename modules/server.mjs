@@ -16,6 +16,12 @@ const server = createServer((request, response) => {
     response.end();
   };
 
+  if (request.method !== 'GET') {
+    return readFile('403.html', (_error, data) => {
+      sendResponse(403, 'text/html', data);
+    });
+  }
+
   switch (request.url) {
     case '/favicon.ico':
       readFile('./favicon.ico', (_error, data) => {
