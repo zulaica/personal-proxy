@@ -1,8 +1,8 @@
-import { createServer } from 'http';
-import { get } from 'https';
-import { readFile } from 'fs';
-import { stringify } from 'querystring';
-import CREDENTIALS from './credentials.mjs';
+import { createServer } from "http";
+import { get } from "https";
+import { readFile } from "fs";
+import { stringify } from "querystring";
+import CREDENTIALS from "./credentials.mjs";
 
 const {
   instagram: { access_token, fields, instagramUserId },
@@ -11,36 +11,36 @@ const instagramQuery = stringify({ fields, limit: 1, access_token });
 
 const server = createServer((request, response) => {
   const sendResponse = (statusCode, contentType, payload) => {
-    response.writeHead(statusCode, { 'Content-Type': contentType });
+    response.writeHead(statusCode, { "Content-Type": contentType });
     response.write(payload);
     response.end();
   };
 
   const requestForbidden = () =>
-    readFile('403.html', (_error, data) =>
-      sendResponse(403, 'text/html', data)
+    readFile("403.html", (_error, data) =>
+      sendResponse(403, "text/html", data)
     );
 
-  if (request.method !== 'GET') return requestForbidden();
+  if (request.method !== "GET") return requestForbidden();
 
   switch (request.url) {
-    case '/favicon.ico':
-      readFile('./favicon.ico', (_error, data) => {
-        sendResponse(200, 'image/x-icon', data);
+    case "/favicon.ico":
+      readFile("./favicon.ico", (_error, data) => {
+        sendResponse(200, "image/x-icon", data);
       });
       break;
-    case '/instagram':
+    case "/instagram":
       get(
         `https://graph.instagram.com/${instagramUserId}/media/?${instagramQuery}`,
         (proxy) => {
-          let data = '';
+          let data = "";
 
-          proxy.on('data', (chunk) => {
+          proxy.on("data", (chunk) => {
             data += chunk;
           });
 
-          proxy.on('end', () => {
-            sendResponse(200, 'application/json', data);
+          proxy.on("end", () => {
+            sendResponse(200, "application/json", data);
           });
         }
       );
