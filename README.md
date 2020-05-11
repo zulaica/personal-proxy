@@ -26,7 +26,7 @@ other params necessary to communicate with the supported third-party APIs.
 ```./modules/credentails.mjs
 const CREDENTIALS = Object.freeze({
   instagram: {
-    access_token:
+    accessToken:
       'YOUR-ACCESS-TOKEN',
     fields: 'id,caption,media_type,media_url,thumbnail_url,timestamp',
     userId: YOUR-USER-ID,

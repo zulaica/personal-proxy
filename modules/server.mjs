@@ -5,9 +5,9 @@ import { stringify } from "querystring";
 import CREDENTIALS from "./credentials.mjs";
 
 const {
-  instagram: { access_token, fields, userId },
+  instagram: { accessToken, fields, userId },
 } = CREDENTIALS;
-const query = stringify({ fields, limit: 1, access_token });
+const query = stringify({ fields, limit: 1, accessToken });
 
 const server = createServer((request, response) => {
   const sendResponse = (statusCode, contentType, payload) => {
