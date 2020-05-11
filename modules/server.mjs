@@ -5,9 +5,9 @@ import { stringify } from "querystring";
 import CREDENTIALS from "./credentials.mjs";
 
 const {
-  instagram: { access_token, fields, instagramUserId },
+  instagram: { access_token, fields, userId },
 } = CREDENTIALS;
-const instagramQuery = stringify({ fields, limit: 1, access_token });
+const query = stringify({ fields, limit: 1, access_token });
 
 const server = createServer((request, response) => {
   const sendResponse = (statusCode, contentType, payload) => {
@@ -30,20 +30,17 @@ const server = createServer((request, response) => {
       });
       break;
     case "/instagram":
-      get(
-        `https://graph.instagram.com/${instagramUserId}/media/?${instagramQuery}`,
-        (proxy) => {
-          let data = "";
+      get(`https://graph.instagram.com/${userId}/media/?${query}`, (proxy) => {
+        let data = "";
 
-          proxy.on("data", (chunk) => {
-            data += chunk;
-          });
+        proxy.on("data", (chunk) => {
+          data += chunk;
+        });
 
-          proxy.on("end", () => {
-            sendResponse(200, "application/json", data);
-          });
-        }
-      );
+        proxy.on("end", () => {
+          sendResponse(200, "application/json", data);
+        });
+      });
       break;
     default:
       requestForbidden();

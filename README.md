@@ -29,7 +29,7 @@ const CREDENTIALS = Object.freeze({
     access_token:
       'YOUR-ACCESS-TOKEN',
     fields: 'id,caption,media_type,media_url,thumbnail_url,timestamp',
-    instagramUserId: YOUR-USER-ID,
+    userId: YOUR-USER-ID,
   },
 });
 
