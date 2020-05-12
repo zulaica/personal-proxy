@@ -4,7 +4,7 @@ import { readFile } from "fs";
 import { stringify } from "querystring";
 import loadVars from "./loadVars.mjs";
 
-!process.env.NODE_ENV !== "production" && loadVars();
+process.env.NODE_ENV !== "production" && loadVars();
 
 const {
   env: { INSTAGRAM_ACCESS_TOKEN, INSTAGRAM_FIELDS, INSTAGRAM_USER_ID }
