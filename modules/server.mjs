@@ -5,7 +5,7 @@ import { stringify } from "querystring";
 import CREDENTIALS from "./credentials.mjs";
 
 const {
-  instagram: { accessToken, fields, userId },
+  instagram: { accessToken, fields, userId }
 } = CREDENTIALS;
 const query = stringify({ fields, limit: 1, accessToken });
 
@@ -30,10 +30,10 @@ const server = createServer((request, response) => {
       });
       break;
     case "/instagram":
-      get(`https://graph.instagram.com/${userId}/media/?${query}`, (proxy) => {
+      get(`https://graph.instagram.com/${userId}/media/?${query}`, proxy => {
         let data = "";
 
-        proxy.on("data", (chunk) => {
+        proxy.on("data", chunk => {
           data += chunk;
         });
 
