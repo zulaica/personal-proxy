@@ -2,12 +2,19 @@ import { createServer } from "http";
 import { get } from "https";
 import { readFile } from "fs";
 import { stringify } from "querystring";
-import CREDENTIALS from "./credentials.mjs";
+import loadVars from "./loadVars.mjs";
+
+!process.env.NODE_ENV !== "production" && loadVars();
 
 const {
-  instagram: { accessToken, fields, userId }
-} = CREDENTIALS;
-const query = stringify({ fields, limit: 1, access_token: accessToken });
+  env: { INSTAGRAM_ACCESS_TOKEN, INSTAGRAM_FIELDS, INSTAGRAM_USER_ID }
+} = process;
+
+const query = stringify({
+  fields: INSTAGRAM_FIELDS,
+  limit: 1,
+  access_token: INSTAGRAM_ACCESS_TOKEN
+});
 
 const server = createServer((request, response) => {
   const sendResponse = (statusCode, contentType, payload) => {
@@ -30,17 +37,20 @@ const server = createServer((request, response) => {
       });
       break;
     case "/instagram":
-      get(`https://graph.instagram.com/${userId}/media/?${query}`, proxy => {
-        let data = "";
+      get(
+        `https://graph.instagram.com/${INSTAGRAM_USER_ID}/media/?${query}`,
+        proxy => {
+          let data = "";
 
-        proxy.on("data", chunk => {
-          data += chunk;
-        });
+          proxy.on("data", chunk => {
+            data += chunk;
+          });
 
-        proxy.on("end", () => {
-          sendResponse(200, "application/json", data);
-        });
-      });
+          proxy.on("end", () => {
+            sendResponse(200, "application/json", data);
+          });
+        }
+      );
       break;
     default:
       requestForbidden();
