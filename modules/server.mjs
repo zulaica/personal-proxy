@@ -33,7 +33,11 @@ const server = createServer((request, response) => {
       sendResponse(403, "text/html", data)
     );
 
-  if (request.method !== "GET") return requestForbidden();
+  if (
+    request.method !== "GET" ||
+    request.headers.referer !== "https://www.zulaica.info/"
+  )
+    return requestForbidden();
 
   switch (request.url) {
     case "/favicon.ico":
