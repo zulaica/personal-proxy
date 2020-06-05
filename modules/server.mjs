@@ -2,9 +2,9 @@ import { createServer } from "http";
 import { get } from "https";
 import { readFile } from "fs";
 import { stringify } from "querystring";
-import loadVars from "./loadVars.mjs";
+import loadEnvVars from "./loadEnvVars.mjs";
 
-process.env.NODE_ENV !== "production" && loadVars();
+process.env.NODE_ENV !== "production" && loadEnvVars();
 
 const {
   env: {
