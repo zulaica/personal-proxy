@@ -18,6 +18,11 @@ const query = stringify({
 
 const server = createServer((request, response) => {
   const sendResponse = (statusCode, contentType, payload) => {
+    response.setHeader(
+      "Access-Control-Allow-Origin",
+      "https://www.zulaica.info"
+    );
+    response.setHeader("Access-Control-Allow-Methods", "GET");
     response.writeHead(statusCode, { "Content-Type": contentType });
     response.write(payload);
     response.end();
