@@ -2,12 +2,18 @@ import { createServer } from "http";
 import { get } from "https";
 import { readFile } from "fs";
 import { stringify } from "querystring";
-import loadVars from "./loadVars.mjs";
+import loadVars, { loadProdVars, loadDevVars } from "./loadVars.mjs";
 
-process.env.NODE_ENV !== "production" && loadVars();
+loadVars();
+process.env.NODE_ENV === "production" ? loadProdVars() : loadDevVars();
 
 const {
-  env: { INSTAGRAM_ACCESS_TOKEN, INSTAGRAM_FIELDS, INSTAGRAM_USER_ID }
+  env: {
+    ACCESS_DOMAIN,
+    INSTAGRAM_ACCESS_TOKEN,
+    INSTAGRAM_FIELDS,
+    INSTAGRAM_USER_ID
+  }
 } = process;
 
 const query = stringify({
@@ -18,10 +24,7 @@ const query = stringify({
 
 const server = createServer((request, response) => {
   const sendResponse = (statusCode, contentType, payload) => {
-    response.setHeader(
-      "Access-Control-Allow-Origin",
-      "https://www.zulaica.info"
-    );
+    response.setHeader("Access-Control-Allow-Origin", ACCESS_DOMAIN);
     response.setHeader("Access-Control-Allow-Methods", "GET");
     response.writeHead(statusCode, { "Content-Type": contentType });
     response.write(payload);
@@ -35,7 +38,7 @@ const server = createServer((request, response) => {
 
   if (
     request.method !== "GET" ||
-    request.headers.referer !== "https://www.zulaica.info/"
+    request.headers.referer !== `${ACCESS_DOMAIN}/`
   )
     return requestForbidden();
 
