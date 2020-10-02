@@ -50,10 +50,10 @@ const server = createServer((request, response) => {
     case "/instagram":
       get(
         `https://graph.instagram.com/${INSTAGRAM_USER_ID}/media/?${query}`,
-        proxy => {
+        (proxy) => {
           let data = "";
 
-          proxy.on("data", chunk => {
+          proxy.on("data", (chunk) => {
             data += chunk;
           });
 
