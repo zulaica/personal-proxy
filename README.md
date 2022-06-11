@@ -5,7 +5,8 @@ secrets both secret and safe.
 
 **This is still very much a work-in-progress.**
 
-It currently proxies calls to Instagram's API with plans to support Spotify.
+It currently proxies calls to Instagram's API with plans to support other
+services.
 
 ## Questions
 
@@ -15,9 +16,9 @@ Because I didn't want to. This is primarily a learning experience for myself.
 
 # Requirements
 
-[NodeJS](https://nodejs.org/) v14
+[NodeJS](https://nodejs.org/) (Version 16 LTS)
 
-# Prerequesites
+# Prerequisites
 
 The following environment variables will need to be assigned the appropriate
 values:
