@@ -1,0 +1,23 @@
+{
+  "name": "personal-proxy",
+  "version": "0.1.0",
+  "description": "A simple NodeJS proxy server.",
+  "author": "David Zulaica",
+  "license": "UNLICENSED",
+  "main": "index.mjs",
+  "private": true,
+  "engines": {
+    "node": ">=16"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zulaica/personal-proxy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zulaica/personal-proxy/issues"
+  },
+  "homepage": "https://github.com/zulaica/personal-proxy#readme",
+  "scripts": {
+    "start": "node ./index.mjs"
+  }
+}
