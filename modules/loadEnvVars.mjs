@@ -1,4 +1,4 @@
-import ENV_VARS from "./envVars.mjs";
+import ENV_VARS from './envVars.mjs';
 
 const loadEnvVars = () =>
   Object.assign(process.env, {
