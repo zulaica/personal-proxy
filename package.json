@@ -7,7 +7,7 @@
   "main": "index.mjs",
   "private": true,
   "engines": {
-    "node": ">=16.15.1"
+    "node": ">=16.16.0"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
     "start": "node ./index.mjs"
   },
   "volta": {
-    "node": "16.15.1",
-    "npm": "8.11.0"
+    "node": "16.16.0",
+    "npm": "8.13.2"
   }
 }
