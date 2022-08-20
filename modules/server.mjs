@@ -11,14 +11,26 @@ const {
     ACCESS_DOMAIN,
     INSTAGRAM_ACCESS_TOKEN,
     INSTAGRAM_FIELDS,
-    INSTAGRAM_USER_ID
+    INSTAGRAM_USER_ID,
+    LASTFM_API_KEY,
+    LASTFM_FORMAT,
+    LASTFM_METHOD,
+    LASTFM_USER
   }
 } = process;
 
-const query = stringify({
+const instagramQuery = stringify({
   fields: INSTAGRAM_FIELDS,
   limit: 1,
   access_token: INSTAGRAM_ACCESS_TOKEN
+});
+
+const lastfmQuery = stringify({
+  api_key: LASTFM_API_KEY,
+  format: LASTFM_FORMAT,
+  limit: 1,
+  method: LASTFM_METHOD,
+  user: LASTFM_USER
 });
 
 const server = createServer((request, response) => {
@@ -49,7 +61,7 @@ const server = createServer((request, response) => {
       break;
     case '/instagram':
       get(
-        `https://graph.instagram.com/${INSTAGRAM_USER_ID}/media/?${query}`,
+        `https://graph.instagram.com/${INSTAGRAM_USER_ID}/media/?${instagramQuery}`,
         (proxy) => {
           let data = '';
 
@@ -62,6 +74,19 @@ const server = createServer((request, response) => {
           });
         }
       );
+      break;
+    case '/lastfm':
+      get(`https://ws.audioscrobbler.com/2.0/?${lastfmQuery}`, (proxy) => {
+        let data = '';
+
+        proxy.on('data', (chunk) => {
+          data += chunk;
+        });
+
+        proxy.on('end', () => {
+          sendResponse(200, 'application/json', data);
+        });
+      });
       break;
     default:
       requestForbidden();
