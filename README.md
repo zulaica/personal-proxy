@@ -24,7 +24,7 @@ The following environment variables will need to be assigned the appropriate
 values:
 
 ```
-ACCESS_DOMAIN
+ALLOWED_DOMAINS
 INSTAGRAM_ACCESS_TOKEN
 INSTAGRAM_FIELDS
 INSTAGRAM_USER_ID
@@ -32,14 +32,14 @@ NODE_ENV
 ```
 
 For local development, these can be set up in a module located at
-`./modules/envVars.mjs`. This file should contain the appropriate access domain,
-IDs, tokens, and other params necessary to communicate with the supported
-third-party APIs. `NODE_ENV` is only required on a production server with its
-value set to `production`.
+`./modules/envVars.mjs`. This file should contain the appropriate allowed
+domains, IDs, tokens, and other params necessary to communicate with the
+supported third-party APIs. `NODE_ENV` is only required on a production server
+with its value set to `production`.
 
 ```./modules/envVars.mjs
 const ENV_VARS = Object.freeze({
-  accessDomain: "http://LOCAL-ACCESS-DOMAIN:OPTIONAL-PORT",
+  allowedDomains: 'http://LOCAL-ACCESS-DOMAIN:OPTIONAL-PORT',
   instagram: {
     accessToken: "YOUR-ACCESS-TOKEN",
     fields: "id,caption,media_type,media_url,thumbnail_url,timestamp",

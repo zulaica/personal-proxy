@@ -11,7 +11,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const {
   env: {
-    ACCESS_DOMAIN,
+    ALLOWED_DOMAINS,
     INSTAGRAM_ACCESS_TOKEN,
     INSTAGRAM_FIELDS,
     INSTAGRAM_USER_ID,
@@ -21,6 +21,8 @@ const {
     LASTFM_USER
   }
 } = process;
+
+const allowedDomains = ALLOWED_DOMAINS.split(',');
 
 const instagramQuery = stringify({
   fields: INSTAGRAM_FIELDS,
@@ -38,7 +40,7 @@ const lastfmQuery = stringify({
 
 const server = createServer((request, response) => {
   const sendResponse = (statusCode, contentType, payload) => {
-    response.setHeader('Access-Control-Allow-Origin', ACCESS_DOMAIN);
+    response.setHeader('Access-Control-Allow-Origin', request.headers.origin);
     response.setHeader('Access-Control-Allow-Methods', 'GET');
     response.writeHead(statusCode, { 'Content-Type': contentType });
     response.write(payload);
@@ -52,7 +54,7 @@ const server = createServer((request, response) => {
 
   if (
     request.method !== 'GET' ||
-    request.headers.referer !== `${ACCESS_DOMAIN}/`
+    !allowedDomains.includes(request.headers.origin)
   )
     return requestForbidden();
 
