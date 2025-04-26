@@ -5,8 +5,8 @@ secrets both secret and safe.
 
 **This is still very much a work-in-progress.**
 
-It currently proxies calls to Instagram's API with plans to support other
-services.
+It currently proxies calls to Instagram's and LastFM's API with plans to support
+other services in the future.
 
 ## Questions
 
@@ -28,6 +28,10 @@ ALLOWED_DOMAINS
 INSTAGRAM_ACCESS_TOKEN
 INSTAGRAM_FIELDS
 INSTAGRAM_USER_ID
+LASTFM_API_KEY
+LASTFM_FORMAT
+LASTFM_METHOD
+LASTFM_USER
 NODE_ENV
 ```
 
@@ -41,9 +45,15 @@ with its value set to `production`.
 const ENV_VARS = Object.freeze({
   allowedDomains: 'http://LOCAL-ACCESS-DOMAIN:OPTIONAL-PORT',
   instagram: {
-    accessToken: "YOUR-ACCESS-TOKEN",
-    fields: "id,caption,media_type,media_url,thumbnail_url,timestamp",
-    userId: YOUR-USER-ID
+    accessToken: 'YOUR-ACCESS-TOKEN',
+    fields: 'id,caption,media_type,media_url,thumbnail_url,timestamp',
+    userId: 'YOUR-USER-ID'
+  },
+  lastfm: {
+    apiKey: 'YOUR-API-KEY',
+    format: 'json',
+    method: 'user.getrecenttracks',
+    user: 'YOUR-USER-NAME'
   }
 });
 
@@ -55,11 +65,12 @@ export default ENV_VARS;
 Launch the index script using node.
 
 ```
-$ node index.mjs
+$ npm run start
 ```
 
 The server will be running at `http://127.0.0.1:3001` with the Instagram API
-accessible from `http://127.0.0.1:3001/instagram`. The IP address and port can
-be configured differently by changing the values in `./modules/config.mjs`.
+accessible from `http://127.0.0.1:3001/instagram` and the LastFM API accessible
+from `http://127.0.0.1:3001/lastfm`. The IP address and port can be configured
+differently by changing the values in `./modules/config.mjs`.
 
 Access to the API is restricted both by `CORS` and `referer` validation.
