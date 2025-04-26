@@ -16,7 +16,7 @@ Because I didn't want to. This is primarily a learning experience for myself.
 
 # Requirements
 
-[NodeJS](https://nodejs.org/) (Version 16 LTS)
+[NodeJS](https://nodejs.org/) (Version 22.15.0)
 
 # Prerequisites
 
